@@ -1,4 +1,4 @@
-﻿const { mainDb } = require('../config/prisma');
+const { mainDb } = require('../config/prisma');
 const { sendSMS } = require('../utils/sms');
 const { logAction } = require('../utils/audit');
 const bcrypt = require('bcryptjs');
@@ -75,3 +75,19 @@ async function getUsers(req, res) {
     res.status(500).json({ error: 'Failed to retrieve administrative analytics' });
   }
 }
+    const requests = await mainDb.hospitalRequest.findMany({
+      include: { hospital: { select: { entity_name: true } } }
+    });
+
+    const hospitalMap = {};
+    requests.forEach(r => {
+      const name = r.hospital.entity_name;
+      hospitalMap[name] = (hospitalMap[name] || 0) + r.units_needed;
+    });
+
+    const hospitalRequestsData = Object.keys(hospitalMap).map(name => ({
+      hospital_name: name,
+      total_units: hospitalMap[name]
+    }));
+
+    hospitalRequestsData.sort((a, b) => b.total_units - a.total_units);
