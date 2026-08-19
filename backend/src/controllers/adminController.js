@@ -4,13 +4,13 @@ const { logAction } = require('../utils/audit');
 const bcrypt = require('bcryptjs');
 
 async function getUsers(req, res) {
-  try {
-    // DB query goes here
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to retrieve system users' });
-  }
-}
+    try {
+        // DB query goes here
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to retrieve system users' });
+    }
+    }
 
     const users = await mainDb.user.findMany({
       where: {
@@ -33,4 +33,12 @@ async function getUsers(req, res) {
       },
       orderBy: { created_at: 'desc' }
     });
-    
+
+    async function updateUserStatus(req, res) {
+    const { id } = req.params;
+    const { status } = req.body; // 'approved' or 'rejected'
+
+    if (!['approved', 'rejected'].includes(status)) {
+        return res.status(400).json({ error: 'Invalid registration status option' });
+    }
+    }
