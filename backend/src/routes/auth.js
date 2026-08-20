@@ -1,4 +1,4 @@
-﻿const express = require('express');
+const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const { authenticateToken } = require('../middleware/auth');
@@ -9,6 +9,7 @@ router.post('/register-complete', authController.registerComplete);
 router.post('/login', authController.login);
 router.get('/profile', authenticateToken, authController.getProfile);
 router.get('/fayda-lookup/:faydaId', authController.faydaLookup);
+router.post('/change-password', authenticateToken, authController.changePassword);
 router.post('/forgot-password', authController.forgotPassword);
 router.post('/reset-password-donor', authController.resetPasswordDonor);
 

@@ -1,4 +1,4 @@
-﻿
+
 const express = require('express');
 const router = express.Router();
 const donorController = require('../controllers/donorController');
@@ -9,5 +9,6 @@ router.post('/appointments', authenticateToken, requireRole(['donor']), donorCon
 router.get('/appointments', authenticateToken, requireRole(['donor']), donorController.getAppointments);
 router.delete('/appointments/:id', authenticateToken, requireRole(['donor']), donorController.cancelAppointment);
 router.get('/stations', authenticateToken, requireRole(['donor']), donorController.getStationsList);
+router.get('/messages', authenticateToken, requireRole(['donor']), donorController.getDonorMessages);
 
 module.exports = router;
