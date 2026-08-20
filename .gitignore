@@ -12,8 +12,6 @@ out/
 .cache/
 coverage/
 
-.env
-.env.*
 !.env.example
 backend/.env
 frontend/.env
@@ -32,7 +30,6 @@ pnpm-debug.log*
 
 .DS_Store
 Thumbs.db
-.vscode/
 .idea/
 
 tmp/
@@ -40,3 +37,4 @@ temp/
 *.tmp
 *.node
 backend/src/generated/
+config.bat
